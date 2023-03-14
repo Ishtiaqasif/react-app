@@ -1,26 +1,27 @@
-import { MouseEvent, ReactElement } from 'react';
+import { MouseEvent, ReactElement, useState } from 'react';
 
-export default function ListGroup(): ReactElement {
+interface Props {
+    items: string[],
+    heading: string
+}
 
-    let items: string[] = ['New York', 'San Francisco', 'Tokyo', 'London', 'Paris'];
+export default function ListGroup({ items, heading }: Props): ReactElement {
 
     let getNotFoundMessage = (): ReactElement | boolean => items.length == 0 && <p>No item found</p>;
 
-    const handleItemClick = (event: MouseEvent) => { console.log(event); };
+    let [selectedItemIndex, setSelectIndex] = useState(0);
 
     return (
         <>
-            <h1>List</h1>
+            <h1>{heading}</h1>
             {
                 getNotFoundMessage()
             }
             {
                 <ul className="list-group">
-                    {items.map((item: string) => <li key={item} onClick={handleItemClick} className="list-group-item">{item}</li>)}
+                    {items.map((item: string, index: number) => <li key={item} onClick={() => { setSelectIndex(index) }} className={'list-group-item ' + (selectedItemIndex == index ? 'active' : '')}>{item}</li>)}
                 </ul>
             }
-
-
         </>
     );
 }
