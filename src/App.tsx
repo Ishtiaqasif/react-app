@@ -1,11 +1,19 @@
-import Message from "./Message";
-import ListGroup from "./components/ListGroup";
+import { useState } from "react";
+import Button from "./components/Button";
+import DismissibleAlert from "./components/DismissibleAlert";
 
 export default function App() {
-  let items: string[] = ['New York', 'San Francisco', 'Tokyo', 'London', 'Paris'];
+
+  const [alertVisibility, setAlertVisibility] = useState(false);
 
   return (
-    <div>
-      <ListGroup items={items} heading="Cities" />
-    </div>);
+
+    <>
+      {alertVisibility && <DismissibleAlert children="Tushar" onClose={() => setAlertVisibility(false)}></DismissibleAlert>}
+      <Button onClick={() => setAlertVisibility(true)}>My Button</Button>
+    </>
+
+  );
+
+
 }

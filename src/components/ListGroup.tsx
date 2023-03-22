@@ -2,10 +2,11 @@ import { MouseEvent, ReactElement, useState } from 'react';
 
 interface Props {
     items: string[],
-    heading: string
+    heading: string,
+    onSelectItem: (item: string) => void;
 }
 
-export default function ListGroup({ items, heading }: Props): ReactElement {
+export default function ListGroup({ items, heading, onSelectItem }: Props): ReactElement {
 
     let getNotFoundMessage = (): ReactElement | boolean => items.length == 0 && <p>No item found</p>;
 
@@ -19,7 +20,7 @@ export default function ListGroup({ items, heading }: Props): ReactElement {
             }
             {
                 <ul className="list-group">
-                    {items.map((item: string, index: number) => <li key={item} onClick={() => { setSelectIndex(index) }} className={'list-group-item ' + (selectedItemIndex == index ? 'active' : '')}>{item}</li>)}
+                    {items.map((item: string, index: number) => <li key={item} onClick={() => { setSelectIndex(index); onSelectItem(item) }} className={'list-group-item ' + (selectedItemIndex == index ? 'active' : '')}>{item}</li>)}
                 </ul>
             }
         </>
